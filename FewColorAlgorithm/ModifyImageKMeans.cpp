@@ -19,7 +19,7 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder,
 
 	FillPoints();
 	ScoreDistanceFirst();
-	for (size_t i = 0; i < 3; i++)
+	for (size_t i = 0; i < 10; i++)
 	{
 		ScoreDistanceContinue();
 	}

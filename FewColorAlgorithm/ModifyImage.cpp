@@ -97,7 +97,6 @@ void ModifyImage::SaveToBin(std::string fileName, int typeCompress)
 				uint8_t rowBit = quantityColors;
 				for (size_t i = 0; i < sizeof(rowBit); ++i)
 				{
-					std::cout << quantityColors << " ";
 					if (quantityColors == 15)
 					{
 						binaryString += std::bitset<4>(rowBit >> i).to_string();

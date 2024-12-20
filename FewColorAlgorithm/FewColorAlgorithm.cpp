@@ -143,15 +143,15 @@ void ImageBinToJpg(std::string fileName)
 	readFile.close();
 	std::cout << "Read Bin" << std::endl;
 
-	image.saveToFile(fileName.substr(0, fileName.size() - 4) + ".jpg");
+	image.saveToFile(fileName.substr(0, fileName.size() - 4) + "Bin" + ".jpg");
 	std::cout << "SavedBinJpg" << std::endl;
 }
 
-void ImageBinToJpgHaffman(std::string folder, std::string fileName, std::string type, int quantityColors, int quantityCubes)
+void ImageBinToJpgHaffman(std::string fileName)
 {
 	sf::Image image;
 
-	std::ifstream readFile(folder + fileName + "Haffman" + std::to_string(quantityColors) + "_" + "k" + ".bin", std::ios::binary, std::ios::binary);
+	std::ifstream readFile(fileName);
 	if (!readFile)
 	{
 		std::cerr << "Error opening file for reading." << std::endl;
@@ -216,11 +216,11 @@ void ImageBinToJpgHaffman(std::string folder, std::string fileName, std::string 
 
 			offset += 1;
 
-			if (offset > binaryString.size() - 10)
+			/*if (offset > binaryString.size() - 10)
 			{
 				std::cout << binaryString.size() - 10 << " " << offset << std::endl;
 				break;
-			}
+			}*/
 
 			std::string thisString = "";
 
@@ -338,7 +338,7 @@ void ImageBinToJpgHaffman(std::string folder, std::string fileName, std::string 
 	readFile.close();
 	std::cout << "Read Bin" << std::endl;
 
-	image.saveToFile(folder + fileName + "Haffman" + std::to_string(quantityColors) + "_" + "k" + ".jpg");
+	image.saveToFile(fileName.substr(0, fileName.size() - 4) + "BinHaffman" + ".jpg");
 	std::cout << "SavedBinJpgHaffman" << std::endl;
 }
 
@@ -369,28 +369,37 @@ int main(int argc, char* argv[])
 	ModifyImageKMeans imageK;
 	int quantityColors = 0;
 	
-	std::cout << std::endl;
+	/*std::cout << std::endl;
 	std::cout << argv[0] << std::endl;
-	//std::cout << argv[1] << std::endl;
-	std::cout << std::endl;
+	std::cout << argv[1] << std::endl;
+	std::cout << std::endl;*/
 
 	// Просто запуск программы
 	if (argc == 1)
 	{
 		folder = "Images/LowLow";
 		fileName = "ImageLowLow.jpg";
-		quantityColors = 31;
-		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		quantityColors = 127;
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
 		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToBin(
+			folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
+		//ImageBinToJpgHaffman(
+		//	folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
 	}
 	if (argc == 2)
 	{
 		std::filesystem::path path(argv[1]);
 		folder = path.parent_path().string(); 
 		fileName = path.filename().string();
-		quantityColors = 31;
-		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		quantityColors = 15;
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
 		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToBin(
+			folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
+		//ImageBinToJpg(
+		//	folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
 		
 	}
 	else if (argc == 3)
@@ -399,7 +408,7 @@ int main(int argc, char* argv[])
 		folder = path.parent_path().string();
 		fileName = path.filename().string();
 		quantityColors = std::stoi(argv[2]);
-		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
 		imageK.SaveToJpg(folder + fileName + "_few" + ".jpg");
 	}
 	else if (argc == 4)
