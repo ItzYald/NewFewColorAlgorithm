@@ -368,14 +368,12 @@ int main(int argc, char* argv[])
 	std::string fileName;
 	std::string type;
 	int quantityColors = 0;
-	int quantityCubes = 0;
 
 	if (argc == 1)
 	{
 		folder = "Images/LowLow/";
 		fileName = "ImageLowLow";
 		quantityColors = 31;
-		quantityCubes = 16;
 		ModifyImageKMeans imageK = ModifyImageKMeans(folder, fileName, quantityColors);
 	}
 	else if (argc == 2)

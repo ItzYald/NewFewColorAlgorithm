@@ -134,13 +134,11 @@
     <ClCompile Include="FewColorAlgorithm.cpp" />
     <ClCompile Include="ModifyImage.cpp" />
     <ClCompile Include="ModifyImageKMeans.cpp" />
-    <ClCompile Include="ModifyImageStaticCubes.cpp" />
     <ClCompile Include="Point.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModifyImage.h" />
     <ClInclude Include="ModifyImageKMeans.h" />
-    <ClInclude Include="ModifyImageStaticCubes.h" />
     <ClInclude Include="Point.h" />
   </ItemGroup>
   <ItemGroup>
