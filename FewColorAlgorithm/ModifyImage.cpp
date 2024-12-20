@@ -29,6 +29,7 @@ float ModifyImage::maxCoordsDistance(sf::Color point1, sf::Color point2)
 void ModifyImage::SaveToJpg(std::string fileName)
 {
 	modifyImage.saveToFile(fileName);
+	std::cout << fileName << std::endl;
 	std::cout << "Saved Jpg" << std::endl;
 }
 
@@ -388,7 +389,6 @@ void ModifyImage::FillImage(bool floydSteinberg)
 	sf::Color minDistanceColor;
 	sf::Color thisColor;
 
-
 	for (size_t i = 0; i < originalImage.getSize().x; i++)
 	{
 		for (size_t j = 0; j < originalImage.getSize().y; j++)
@@ -421,9 +421,6 @@ void ModifyImage::FillImage(bool floydSteinberg)
 				sf::Color pixel2 = originalImage.getPixel(i - 1, j + 1);
 				sf::Color pixel3 = originalImage.getPixel(i, j + 1);
 				sf::Color pixel4 = originalImage.getPixel(i + 1, j + 1);
-				//std::cout << (int)pixel1.r << " " << (int)pixel1.g << " " << (int)pixel1.b << std::endl;
-				//int a = (int)pixel1.r + (int)pixel1.g + (int)pixel1.b;
-				//std::cout << a;
 				
 				if ((int)pixel1.r + (int)error1.r <= 255 && (int)pixel1.g + (int)error1.g <= 255 && (int)pixel1.b + (int)error1.b <= 255)
 					originalImage.setPixel(i + 1, j, pixel1 + error1);

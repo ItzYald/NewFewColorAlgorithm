@@ -1,12 +1,13 @@
 #include "ModifyImageKMeans.h"
 
 
-ModifyImageKMeans::ModifyImageKMeans(std::string folder, std::string fileName, int _quantityColors)
+ModifyImageKMeans::ModifyImageKMeans(std::string folder,
+	std::string fileName, int _quantityColors, bool floydSteinberg)
 {
 	quantityColors = _quantityColors;
 
 	originalImage = sf::Image();
-	originalImage.loadFromFile(folder + fileName + ".jpg");
+	originalImage.loadFromFile(folder + "/" + fileName);
 	modifyImage = originalImage;
 
 	optimizedColors = std::vector<sf::Color>();
@@ -18,7 +19,7 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder, std::string fileName, i
 
 	FillPoints();
 	ScoreDistanceFirst();
-	for (size_t i = 0; i < 10; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		ScoreDistanceContinue();
 	}
@@ -27,7 +28,7 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder, std::string fileName, i
 		std::cout << (int)optimizedColors[k].r << " " << (int)optimizedColors[k].g << " " << (int)optimizedColors[k].b << std::endl;
 	}
 
-	FillImage(true);
+	FillImage(floydSteinberg);
 }
 
 void ModifyImageKMeans::FillPoints()

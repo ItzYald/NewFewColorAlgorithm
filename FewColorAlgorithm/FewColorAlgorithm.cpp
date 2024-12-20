@@ -3,7 +3,6 @@
 
 #include "SFML/Graphics.hpp"
 
-#include "ModifyImageStaticCubes.h"
 #include "ModifyImageKMeans.h"
 
 
@@ -367,38 +366,57 @@ int main(int argc, char* argv[])
 	std::string folder;
 	std::string fileName;
 	std::string type;
+	ModifyImageKMeans imageK;
 	int quantityColors = 0;
+	
+	std::cout << std::endl;
+	std::cout << argv[0] << std::endl;
+	//std::cout << argv[1] << std::endl;
+	std::cout << std::endl;
 
+	// Просто запуск программы
 	if (argc == 1)
 	{
-		folder = "Images/LowLow/";
-		fileName = "ImageLowLow";
+		folder = "Images/LowLow";
+		fileName = "ImageLowLow.jpg";
 		quantityColors = 31;
-		ModifyImageKMeans imageK = ModifyImageKMeans(folder, fileName, quantityColors);
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
 	}
-	else if (argc == 2)
+	if (argc == 2)
 	{
-		std::string str = fileName.substr(0, fileName.size() - 3);
-		std::cout << "lol";
-		std::cout << std::endl;
+		std::filesystem::path path(argv[1]);
+		folder = path.parent_path().string(); 
+		fileName = path.filename().string();
+		quantityColors = 31;
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		
 	}
 	else if (argc == 3)
 	{
-		folder = argv[1];
-		fileName = argv[2];
-		quantityColors = 31;
-		quantityCubes = 16;
-		ModifyImageKMeans imageK = ModifyImageKMeans(folder, fileName, quantityColors);
+		std::filesystem::path path(argv[1]);
+		folder = path.parent_path().string();
+		fileName = path.filename().string();
+		quantityColors = std::stoi(argv[2]);
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
 		imageK.SaveToJpg(folder + fileName + "_few" + ".jpg");
 	}
 	else if (argc == 4)
 	{
 		folder = argv[1];
 		fileName = argv[2];
-		quantityColors = 31;
-		quantityCubes = 16;
-		ModifyImageKMeans imageK = ModifyImageKMeans(folder, fileName, quantityColors);
-		std::string arg = argv[3];
+		quantityColors = std::stoi(argv[3]);
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		imageK.SaveToJpg(folder + fileName + "_few" + ".jpg");
+	}
+	else if (argc == 5)
+	{
+		folder = argv[1];
+		fileName = argv[2];
+		quantityColors = std::stoi(argv[3]);
+		imageK = ModifyImageKMeans(folder, fileName, quantityColors, true);
+		std::string arg = argv[4];
 		if (arg == "jpg")
 			imageK.SaveToJpg(folder + fileName + "_few" + ".jpg");
 		else
