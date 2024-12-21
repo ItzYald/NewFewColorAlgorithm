@@ -10,7 +10,6 @@ void ImageBinToJpg(std::string fileName)
 {
 	sf::Image image;
 
-	//std::ifstream readFile(folder + fileName + "Line" + std::to_string(quantityColors) + "_" + "k" + ".bin", std::ios::binary);
 	std::ifstream readFile(fileName, std::ios::binary);
 	if (!readFile)
 	{
@@ -381,25 +380,25 @@ int main(int argc, char* argv[])
 		fileName = "ImageLowLow.jpg";
 		quantityColors = 127;
 		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
-		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
-		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToJpg(folder + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToJpg(folder + "Few" + std::to_string(quantityColors) + fileName);
 		imageK.SaveToBin(
-			folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
+			folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
 		//ImageBinToJpgHaffman(
-		//	folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
+		//	folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
 	}
 	if (argc == 2)
 	{
 		std::filesystem::path path(argv[1]);
-		folder = path.parent_path().string(); 
+		folder = path.parent_path().string() + "/";
 		fileName = path.filename().string();
-		quantityColors = 15;
+		quantityColors = 31;
 		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
-		imageK.SaveToJpg(folder + "/" + "Few" + std::to_string(quantityColors) + fileName);
+		imageK.SaveToJpg(folder + "Few" + std::to_string(quantityColors) + fileName);
 		imageK.SaveToBin(
-			folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
+			folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
 		//ImageBinToJpg(
-		//	folder + "/" + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
+		//	folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
 		
 	}
 	else if (argc == 3)

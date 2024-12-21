@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FewColorAlgorithm", "FewColorAlgorithm\FewColorAlgorithm.vcxproj", "{C0903E13-A98B-4242-A0F1-BEF47A56E5AF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FewColorIgeBinToJpg", "FewColorIgeBinToJpg\FewColorIgeBinToJpg.vcxproj", "{EAD0B0C7-2836-4345-BB1C-692525D82B05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{C0903E13-A98B-4242-A0F1-BEF47A56E5AF}.Release|x64.Build.0 = Release|x64
 		{C0903E13-A98B-4242-A0F1-BEF47A56E5AF}.Release|x86.ActiveCfg = Release|Win32
 		{C0903E13-A98B-4242-A0F1-BEF47A56E5AF}.Release|x86.Build.0 = Release|Win32
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Debug|x64.ActiveCfg = Debug|x64
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Debug|x64.Build.0 = Debug|x64
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Debug|x86.ActiveCfg = Debug|Win32
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Debug|x86.Build.0 = Debug|Win32
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Release|x64.ActiveCfg = Release|x64
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Release|x64.Build.0 = Release|x64
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Release|x86.ActiveCfg = Release|Win32
+		{EAD0B0C7-2836-4345-BB1C-692525D82B05}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

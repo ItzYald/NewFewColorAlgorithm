@@ -7,7 +7,7 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder,
 	quantityColors = _quantityColors;
 
 	originalImage = sf::Image();
-	originalImage.loadFromFile(folder + "/" + fileName);
+	originalImage.loadFromFile(folder + fileName);
 	modifyImage = originalImage;
 
 	optimizedColors = std::vector<sf::Color>();
