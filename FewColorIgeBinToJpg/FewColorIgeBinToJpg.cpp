@@ -8,30 +8,27 @@
 
 uint8_t MyLog(int x)
 {
-	return (uint8_t)(std::log(x) / std::log(2)) + 1;
+	//std::cout << (uint8_t)(std::log(x) / std::log(2)) + 1 << " " << x << std::endl;
+	//std::cin >> x;
+	return (uint8_t)(std::log(x) / std::log(2));
 }
 
 void ImageBinToJpg(std::string folder, std::string fileName)
 {
-    sf::Image image;
-
 	std::ifstream readFile(folder + fileName, std::ios::binary);
 
 	if (!readFile)
 	{
 		std::cout << "Не удалось открыть файл" << std::endl;
 	}
-	int lol = 0;
-	std::cout << folder + fileName;
 	
-
 	// Размер изображения
 	int imageSizeX;
 	readFile.read((char*)&imageSizeX, sizeof(imageSizeX));
 	int imageSizeY;
 	readFile.read((char*)&imageSizeY, sizeof(imageSizeY));
 
-	image = sf::Image();
+	sf::Image image = sf::Image();
 	image.create(imageSizeX, imageSizeY);
 
 	// Количество цветов
@@ -71,7 +68,10 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 
 	int offset = 0;
 
-	uint8_t quantityColorsLog = MyLog(quantityColorsBin);
+	int quantityColorsLog = MyLog(quantityColorsBin);
+	std::cout << quantityColorsLog << std::endl;
+	int lol;
+	std::cin >> lol;
 
 	for (size_t i = 0; i < imageSizeX; i++)
 	{
@@ -86,13 +86,14 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 			std::string thisString = binaryString.substr(offset, quantityColorsLog);
 			offset += quantityColorsLog;
 
-			if (std::stoi(thisString, nullptr, 2) == quantityColorsBin)
+			if (std::stoi(thisString, nullptr, 2) == quantityColorsBin - 1)
 			{
 				thisString = binaryString.substr(offset, quantityColorsLog);
 				sf::Color thisColor = colors[std::stoi(thisString, nullptr, 2)];
 				offset += quantityColorsLog;
 				thisString = binaryString.substr(offset, quantityColorsLog);
 				offset += quantityColorsLog;
+				std::cout << thisString << " ";
 				if (j + std::stoi(thisString, nullptr, 2) - 1 >= imageSizeY)
 				{
 					offset -= quantityColorsLog * 3;
@@ -121,7 +122,6 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 
 	image.saveToFile(folder + fileName.substr(0, fileName.size() - 4) + "Bin" + ".jpg");
 	std::cout << "SavedBinJpg" << std::endl;
-	std::cin >> lol;
 
 }
 
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
 	if (argc == 1)
 	{
 		folder = "Images/LowLow/";
-		fileName = "Few31ImageLowLow.bin";
+		fileName = "Few32Image.bin";
 		ImageBinToJpg(folder, fileName);
 	}
 	if (argc == 2)

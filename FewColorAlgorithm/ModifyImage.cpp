@@ -73,7 +73,7 @@ void ModifyImage::SaveToBin(std::string fileName, int typeCompress)
 
 			sf::Color thisColor = modifyImage.getPixel(i, j);
 
-			for (size_t k = 0; k < quantityColors; k++)
+			for (size_t k = 0; k < quantityColors - 1; k++)
 			{
 				if (j + k >= originalImage.getSize().y)
 					break;
@@ -92,128 +92,238 @@ void ModifyImage::SaveToBin(std::string fileName, int typeCompress)
 					break;
 			}
 
-			if (row > 3)
+			if (row > 3 || thisColorNumberByte == quantityColors - 1)
 			{
-				uint8_t rowBit = quantityColors;
+				uint8_t rowBit = quantityColors - 1;
 				for (size_t i = 0; i < sizeof(rowBit); ++i)
 				{
-					if (quantityColors == 15)
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(rowBit >> i).to_string();
+					}
+					if (quantityColors == 16)
 					{
 						binaryString += std::bitset<4>(rowBit >> i).to_string();
 					}
-					else if (quantityColors == 31)
+					else if (quantityColors == 32)
 					{
 						binaryString += std::bitset<5>(rowBit >> i).to_string();
 					}
-					else if (quantityColors == 63)
+					else if (quantityColors == 64)
 					{
 						binaryString += std::bitset<6>(rowBit >> i).to_string();
 					}
-					else if (quantityColors == 127)
+					else if (quantityColors == 128)
 					{
 						binaryString += std::bitset<7>(rowBit >> i).to_string();
 					}
-					else if (quantityColors == 255)
+					else if (quantityColors == 256)
 					{
 						binaryString += std::bitset<8>(rowBit >> i).to_string();
 					}
-					else if (quantityColors == 511)
+					else if (quantityColors == 512)
 					{
 						binaryString += std::bitset<9>(rowBit >> i).to_string();
 					}
 				}
-
 				for (size_t i = 0; i < sizeof(thisColorNumberByte); ++i)
 				{
-					if (quantityColors == 15)
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 16)
 					{
 						binaryString += std::bitset<4>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 31)
+					else if (quantityColors == 32)
 					{
 						binaryString += std::bitset<5>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 63)
+					else if (quantityColors == 64)
 					{
 						binaryString += std::bitset<6>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 127)
+					else if (quantityColors == 128)
 					{
 						binaryString += std::bitset<7>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 255)
+					else if (quantityColors == 256)
 					{
 						binaryString += std::bitset<8>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 511)
+					else if (quantityColors == 512)
 					{
 						binaryString += std::bitset<9>(thisColorNumberByte >> i).to_string();
 					}
 				}
-
 				for (size_t i = 0; i < sizeof(row); ++i)
 				{
-					if (quantityColors == 15)
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(row >> i).to_string();
+					}
+					else if (quantityColors == 16)
 					{
 						binaryString += std::bitset<4>(row >> i).to_string();
 					}
-					else if (quantityColors == 31)
+					else if (quantityColors == 32)
 					{
 						binaryString += std::bitset<5>(row >> i).to_string();
 					}
-					else if (quantityColors == 63)
+					else if (quantityColors == 64)
 					{
 						binaryString += std::bitset<6>(row >> i).to_string();
 					}
-					else if (quantityColors == 127)
+					else if (quantityColors == 128)
 					{
 						binaryString += std::bitset<7>(row >> i).to_string();
 					}
-					else if (quantityColors == 255)
+					else if (quantityColors == 256)
 					{
 						binaryString += std::bitset<8>(row >> i).to_string();
 					}
-					else if (quantityColors == 511)
+					else if (quantityColors == 512)
 					{
 						binaryString += std::bitset<9>(row >> i).to_string();
 					}
 				}
 				j += row - 1;
 
-			}
+			}/*
+			else if (thisColorNumberByte == quantityColors - 1)
+			{
+				uint8_t rowBit = quantityColors - 1;
+				for (size_t i = 0; i < sizeof(rowBit); ++i)
+				{
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(rowBit >> i).to_string();
+					}
+					if (quantityColors == 16)
+					{
+						binaryString += std::bitset<4>(rowBit >> i).to_string();
+					}
+					else if (quantityColors == 32)
+					{
+						binaryString += std::bitset<5>(rowBit >> i).to_string();
+					}
+					else if (quantityColors == 64)
+					{
+						binaryString += std::bitset<6>(rowBit >> i).to_string();
+					}
+					else if (quantityColors == 128)
+					{
+						binaryString += std::bitset<7>(rowBit >> i).to_string();
+					}
+					else if (quantityColors == 256)
+					{
+						binaryString += std::bitset<8>(rowBit >> i).to_string();
+					}
+					else if (quantityColors == 512)
+					{
+						binaryString += std::bitset<9>(rowBit >> i).to_string();
+					}
+				}
+				
+				for (size_t i = 0; i < sizeof(thisColorNumberByte); ++i)
+				{
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 16)
+					{
+						binaryString += std::bitset<4>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 32)
+					{
+						binaryString += std::bitset<5>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 64)
+					{
+						binaryString += std::bitset<6>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 128)
+					{
+						binaryString += std::bitset<7>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 256)
+					{
+						binaryString += std::bitset<8>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 512)
+					{
+						binaryString += std::bitset<9>(thisColorNumberByte >> i).to_string();
+					}
+				}
+				row = 1;
+				for (size_t i = 0; i < sizeof(row); ++i)
+				{
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(row >> i).to_string();
+					}
+					else if (quantityColors == 16)
+					{
+						binaryString += std::bitset<4>(row >> i).to_string();
+					}
+					else if (quantityColors == 32)
+					{
+						binaryString += std::bitset<5>(row >> i).to_string();
+					}
+					else if (quantityColors == 64)
+					{
+						binaryString += std::bitset<6>(row >> i).to_string();
+					}
+					else if (quantityColors == 128)
+					{
+						binaryString += std::bitset<7>(row >> i).to_string();
+					}
+					else if (quantityColors == 256)
+					{
+						binaryString += std::bitset<8>(row >> i).to_string();
+					}
+					else if (quantityColors == 512)
+					{
+						binaryString += std::bitset<9>(row >> i).to_string();
+					}
+				}
+			}*/
 			else
 			{
 				for (size_t i = 0; i < sizeof(thisColorNumberByte); ++i)
 				{
-					if (quantityColors == 15)
+					if (quantityColors == 8)
+					{
+						binaryString += std::bitset<3>(thisColorNumberByte >> i).to_string();
+					}
+					else if (quantityColors == 16)
 					{
 						binaryString += std::bitset<4>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 31)
+					else if (quantityColors == 32)
 					{
 						binaryString += std::bitset<5>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 63)
+					else if (quantityColors == 64)
 					{
 						binaryString += std::bitset<6>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 127)
+					else if (quantityColors == 128)
 					{
 						binaryString += std::bitset<7>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 255)
+					else if (quantityColors == 256)
 					{
 						binaryString += std::bitset<8>(thisColorNumberByte >> i).to_string();
 					}
-					else if (quantityColors == 511)
+					else if (quantityColors == 512)
 					{
 						binaryString += std::bitset<9>(thisColorNumberByte >> i).to_string();
 					}
 				}
 			}
-
-
-
 		}
 	}
 
