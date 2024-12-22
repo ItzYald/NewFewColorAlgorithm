@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 #include <vector>
 #include <cmath>
+#include <filesystem>
 
 uint8_t MyLog(int x)
 {
@@ -20,6 +21,9 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 	{
 		std::cout << "Не удалось открыть файл" << std::endl;
 	}
+	int lol = 0;
+	std::cout << folder + fileName;
+	
 
 	// Размер изображения
 	int imageSizeX;
@@ -61,7 +65,6 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 	{
 		for (size_t i = 0; i < sizeof(buffer); ++i)
 		{
-			// Здесь обрабатываем каждый бит
 			binaryString += std::bitset<8>(buffer >> i).to_string();
 		}
 	}
@@ -118,12 +121,12 @@ void ImageBinToJpg(std::string folder, std::string fileName)
 
 	image.saveToFile(folder + fileName.substr(0, fileName.size() - 4) + "Bin" + ".jpg");
 	std::cout << "SavedBinJpg" << std::endl;
+	std::cin >> lol;
 
 }
 
 int main(int argc, char* argv[])
 {
-	//std::cout << (int)(std::log(15) / std::log(2)) + 1;
 	std::string folder;
 	std::string fileName;
 	if (argc == 1)
@@ -134,6 +137,9 @@ int main(int argc, char* argv[])
 	}
 	if (argc == 2)
 	{
-
+		std::filesystem::path path(argv[1]);
+		folder = path.parent_path().string() + "/";
+		fileName = path.filename().string();
+		ImageBinToJpg(folder, fileName);
 	}
 }

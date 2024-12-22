@@ -397,14 +397,12 @@ int main(int argc, char* argv[])
 		imageK.SaveToJpg(folder + "Few" + std::to_string(quantityColors) + fileName);
 		imageK.SaveToBin(
 			folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
-		//ImageBinToJpg(
-		//	folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin");
 		
 	}
 	else if (argc == 3)
 	{
 		std::filesystem::path path(argv[1]);
-		folder = path.parent_path().string();
+		folder = path.parent_path().string() + "/";
 		fileName = path.filename().string();
 		quantityColors = std::stoi(argv[2]);
 		imageK = ModifyImageKMeans(folder, fileName, quantityColors, false);
