@@ -2,18 +2,18 @@
 
 float ModifyImage::pifagorMetric(Point point1, sf::Color point2)
 {
-	return std::sqrt(
+	return 
 		std::pow(point1.r - point2.r, 2) +
 		std::pow(point1.g - point2.g, 2) +
-		std::pow(point1.b - point2.b, 2));
+		std::pow(point1.b - point2.b, 2);
 }
 
 float ModifyImage::pifagorMetric(sf::Color point1, sf::Color point2)
 {
-	return std::sqrt(
+	return 
 		std::pow(point1.r - point2.r, 2) +
 		std::pow(point1.g - point2.g, 2) +
-		std::pow(point1.b - point2.b, 2));
+		std::pow(point1.b - point2.b, 2);
 }
 
 float ModifyImage::maxCoordsDistance(Point point1, sf::Color point2)
