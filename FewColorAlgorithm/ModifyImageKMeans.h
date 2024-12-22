@@ -16,8 +16,6 @@ public:
 
 	std::vector<std::vector<std::shared_ptr<Point>>> clusters;
 
-	std::vector<sf::Color> oldOptimizedColors;
-
 	void FillPoints();
 	void ScoreDistanceFirst();
 	void ScoreDistanceContinue();

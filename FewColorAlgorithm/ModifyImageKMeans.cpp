@@ -91,7 +91,6 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 
 void ModifyImageKMeans::ScoreDistanceContinue()
 {
-	oldOptimizedColors = optimizedColors;
 	sf::Vector3f sumCoords;
 	for (size_t i = 0; i < clusters.size(); i++)
 	{
@@ -100,7 +99,8 @@ void ModifyImageKMeans::ScoreDistanceContinue()
 		{
 			sumCoords += sf::Vector3f(thisPoint->r, thisPoint->g, thisPoint->b);
 		}
-		optimizedColors[i] = sf::Color(sumCoords.x / (float)clusters[i].size(), sumCoords.y / (float)clusters[i].size(), sumCoords.z / (float)clusters[i].size());;
+		float clusterSize = (float)clusters[i].size();
+		optimizedColors[i] = sf::Color(sumCoords.x / clusterSize, sumCoords.y / clusterSize, sumCoords.z / clusterSize);;
 	}
 
 	for (size_t i = 0; i < clusters.size(); i++)
