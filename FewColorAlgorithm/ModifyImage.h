@@ -20,8 +20,8 @@ public:
 	std::vector<sf::Color> optimizedColors;
 	std::vector<sf::Color> colors255;
 
-	static float pifagorMetric(Point vec1, sf::Color vec2);
-	static float pifagorMetric(sf::Color vec1, sf::Color vec2);
+	static double pifagorMetric(Point vec1, sf::Color vec2);
+	static double pifagorMetric(sf::Color vec1, sf::Color vec2);
 	static float maxCoordsDistance(Point vec1, sf::Color vec2);
 	static float maxCoordsDistance(sf::Color vec1, sf::Color vec2);
 

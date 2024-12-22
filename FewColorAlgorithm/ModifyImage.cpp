@@ -1,6 +1,6 @@
 #include "ModifyImage.h"
 
-float ModifyImage::pifagorMetric(Point point1, sf::Color point2)
+double ModifyImage::pifagorMetric(Point point1, sf::Color point2)
 {
 	return 
 		std::pow(point1.r - point2.r, 2) +
@@ -8,7 +8,7 @@ float ModifyImage::pifagorMetric(Point point1, sf::Color point2)
 		std::pow(point1.b - point2.b, 2);
 }
 
-float ModifyImage::pifagorMetric(sf::Color point1, sf::Color point2)
+double ModifyImage::pifagorMetric(sf::Color point1, sf::Color point2)
 {
 	return 
 		std::pow(point1.r - point2.r, 2) +

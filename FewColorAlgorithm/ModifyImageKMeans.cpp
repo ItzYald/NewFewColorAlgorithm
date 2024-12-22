@@ -45,7 +45,7 @@ void ModifyImageKMeans::FillPoints()
 
 void ModifyImageKMeans::ScoreDistanceFirst()
 {
-	std::vector<float> distancesToCentres;
+	/*std::vector<float> distancesToCentres;
 	float minDistance;
 	int index;
 	for (std::shared_ptr<Point>& thisPoint : points)
@@ -57,11 +57,34 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 		}
 
 		minDistance = *std::min_element(distancesToCentres.begin(), distancesToCentres.end());
-		index = std::distance(distancesToCentres.begin(), std::find(distancesToCentres.begin(), distancesToCentres.end(), minDistance));
+		index = std::distance(distancesToCentres.begin(),
+			std::find(distancesToCentres.begin(), distancesToCentres.end(), minDistance));
+
+		clusters[index].push_back(thisPoint);
+		thisPoint->setNumberCluster(index);
+	}*/
+
+	double minDistance = 1000000000000;
+	int index = 0;
+	for (std::shared_ptr<Point>& thisPoint : points)
+	{
+		minDistance = 1000000000000;
+		double distance;
+		index = 0;
+		for (size_t i = 0; i < optimizedColors.size(); i++)
+		{
+			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				index = i;
+			}
+		}
 
 		clusters[index].push_back(thisPoint);
 		thisPoint->setNumberCluster(index);
 	}
+
 	std::cout << "distanceFirst" << std::endl;
 
 }
@@ -80,30 +103,51 @@ void ModifyImageKMeans::ScoreDistanceContinue()
 		optimizedColors[i] = sf::Color(sumCoords.x / (float)clusters[i].size(), sumCoords.y / (float)clusters[i].size(), sumCoords.z / (float)clusters[i].size());;
 	}
 
-	std::vector<float> distancesToCentres;
-	float minDistance;
-	int index;
 	for (size_t i = 0; i < clusters.size(); i++)
 	{
 		clusters[i].clear();
 	}
+	std::vector<float> distancesToCentres;
+	/*float minDistance;
+	int index;
 	for (std::shared_ptr<Point>& thisPoint : points)
 	{
-		distancesToCentres.clear();
+		minDistance = 1000000000000;
+		double distance;
+		index = 0;
 		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			distancesToCentres.push_back(pifagorMetric(*thisPoint, optimizedColors[i]));
+			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				index = i;
+			}
 		}
 
-		minDistance = *std::min_element(distancesToCentres.begin(), distancesToCentres.end());
-		auto find = std::find(distancesToCentres.begin(), distancesToCentres.end(), minDistance);
+		clusters[index].push_back(thisPoint);
+		thisPoint->setNumberCluster(index);
+	}*/
 
-		if (find != distancesToCentres.end())
+	double minDistance = 1000000000000;
+	int index = 0;
+	for (std::shared_ptr<Point>& thisPoint : points)
+	{
+		minDistance = 1000000000000;
+		double distance;
+		index = 0;
+		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			index = std::distance(distancesToCentres.begin(), find);
-			clusters[index].push_back(thisPoint);
-			thisPoint->setNumberCluster(index);
+			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
+			if (distance < minDistance)
+			{
+				minDistance = distance;
+				index = i;
+			}
 		}
+
+		clusters[index].push_back(thisPoint);
+		thisPoint->setNumberCluster(index);
 	}
 
 	std::cout << "distanceContinue" << std::endl;
