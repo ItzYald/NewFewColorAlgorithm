@@ -11,10 +11,14 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder,
 	modifyImage = originalImage;
 
 	optimizedColors = std::vector<sf::Color>();
+	clustersSumCoords = std::vector<sf::Vector3f>();
+	quantityInClusters = std::vector<int>();
 	for (size_t i = 0; i < quantityColors; i++)
 	{
 		optimizedColors.push_back(sf::Color(rand() % 256, rand() % 256, rand() % 256));
 		clusters.push_back(std::vector<std::shared_ptr<Point>>());
+		clustersSumCoords.push_back(sf::Vector3f(0, 0, 0));
+		quantityInClusters.push_back(0);
 	}
 
 	FillPoints();
@@ -45,25 +49,6 @@ void ModifyImageKMeans::FillPoints()
 
 void ModifyImageKMeans::ScoreDistanceFirst()
 {
-	/*std::vector<float> distancesToCentres;
-	float minDistance;
-	int index;
-	for (std::shared_ptr<Point>& thisPoint : points)
-	{
-		distancesToCentres.clear();
-		for (size_t i = 0; i < optimizedColors.size(); i++)
-		{
-			distancesToCentres.push_back(pifagorMetric(*thisPoint, optimizedColors[i]));
-		}
-
-		minDistance = *std::min_element(distancesToCentres.begin(), distancesToCentres.end());
-		index = std::distance(distancesToCentres.begin(),
-			std::find(distancesToCentres.begin(), distancesToCentres.end(), minDistance));
-
-		clusters[index].push_back(thisPoint);
-		thisPoint->setNumberCluster(index);
-	}*/
-
 	double minDistance = 1000000000000;
 	int index = 0;
 	for (std::shared_ptr<Point>& thisPoint : points)
@@ -81,7 +66,8 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 			}
 		}
 
-		clusters[index].push_back(thisPoint);
+		clustersSumCoords[index] += sf::Vector3f(thisPoint->r, thisPoint->g, thisPoint->b);
+		quantityInClusters[index] += 1;
 		thisPoint->setNumberCluster(index);
 	}
 
@@ -92,42 +78,18 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 void ModifyImageKMeans::ScoreDistanceContinue()
 {
 	sf::Vector3f sumCoords;
-	for (size_t i = 0; i < clusters.size(); i++)
+	for (size_t i = 0; i < clustersSumCoords.size(); i++)
 	{
-		sumCoords = sf::Vector3f(0, 0, 0);
-		for (std::shared_ptr<Point>& thisPoint : clusters[i])
-		{
-			sumCoords += sf::Vector3f(thisPoint->r, thisPoint->g, thisPoint->b);
-		}
-		float clusterSize = (float)clusters[i].size();
-		optimizedColors[i] = sf::Color(sumCoords.x / clusterSize, sumCoords.y / clusterSize, sumCoords.z / clusterSize);;
+		float clusterSize = quantityInClusters[i];
+		optimizedColors[i] = sf::Color(clustersSumCoords[i].x / clusterSize,
+			clustersSumCoords[i].y / clusterSize, clustersSumCoords[i].z / clusterSize);;
 	}
 
-	for (size_t i = 0; i < clusters.size(); i++)
+	for (size_t i = 0; i < clustersSumCoords.size(); i++)
 	{
-		clusters[i].clear();
+		clustersSumCoords[i] = sf::Vector3f(0, 0, 0);
+		quantityInClusters[i] = 0;
 	}
-	std::vector<float> distancesToCentres;
-	/*float minDistance;
-	int index;
-	for (std::shared_ptr<Point>& thisPoint : points)
-	{
-		minDistance = 1000000000000;
-		double distance;
-		index = 0;
-		for (size_t i = 0; i < optimizedColors.size(); i++)
-		{
-			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
-			if (distance < minDistance)
-			{
-				minDistance = distance;
-				index = i;
-			}
-		}
-
-		clusters[index].push_back(thisPoint);
-		thisPoint->setNumberCluster(index);
-	}*/
 
 	double minDistance = 1000000000000;
 	int index = 0;
@@ -146,10 +108,12 @@ void ModifyImageKMeans::ScoreDistanceContinue()
 			}
 		}
 
-		clusters[index].push_back(thisPoint);
+		clustersSumCoords[index] += sf::Vector3f(thisPoint->r, thisPoint->g, thisPoint->b);
+		quantityInClusters[index] += 1;
 		thisPoint->setNumberCluster(index);
 	}
 
 	std::cout << "distanceContinue" << std::endl;
 
 }
+

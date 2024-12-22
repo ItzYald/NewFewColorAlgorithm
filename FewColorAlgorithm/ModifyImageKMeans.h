@@ -5,16 +5,14 @@
 class ModifyImageKMeans : public ModifyImage
 {
 private:
-
-
+	std::vector<std::shared_ptr<Point>> points;
 
 public:
 	ModifyImageKMeans(){}
 	ModifyImageKMeans(std::string folder, std::string fileName, int _quantityColor, bool floydSteinberg);
 
-	std::vector<std::shared_ptr<Point>> points;
-
-	std::vector<std::vector<std::shared_ptr<Point>>> clusters;
+	std::vector<sf::Vector3f> clustersSumCoords;
+	std::vector<int> quantityInClusters;
 
 	void FillPoints();
 	void ScoreDistanceFirst();
