@@ -18,7 +18,6 @@ public:
 	int quantityColors;
 
 	std::vector<sf::Color> optimizedColors;
-	std::vector<sf::Color> colors255;
 
 	static double pifagorMetric(Point vec1, sf::Color vec2);
 	static double pifagorMetric(sf::Color vec1, sf::Color vec2);

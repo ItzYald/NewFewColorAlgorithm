@@ -16,7 +16,6 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder,
 	for (size_t i = 0; i < quantityColors; i++)
 	{
 		optimizedColors.push_back(sf::Color(rand() % 256, rand() % 256, rand() % 256));
-		clusters.push_back(std::vector<std::shared_ptr<Point>>());
 		clustersSumCoords.push_back(sf::Vector3f(0, 0, 0));
 		quantityInClusters.push_back(0);
 	}
