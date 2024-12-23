@@ -1,6 +1,6 @@
 #include "ModifyImage.h"
 
-double ModifyImage::pifagorMetric(Point point1, sf::Color point2)
+double ModifyImage::pifagorMetric(Point& point1, sf::Color& point2)
 {
 	return 
 		std::pow(point1.r - point2.r, 2) +
@@ -8,7 +8,7 @@ double ModifyImage::pifagorMetric(Point point1, sf::Color point2)
 		std::pow(point1.b - point2.b, 2);
 }
 
-double ModifyImage::pifagorMetric(sf::Color point1, sf::Color point2)
+double ModifyImage::pifagorMetric(sf::Color& point1, sf::Color& point2)
 {
 	return 
 		std::pow(point1.r - point2.r, 2) +
@@ -16,12 +16,12 @@ double ModifyImage::pifagorMetric(sf::Color point1, sf::Color point2)
 		std::pow(point1.b - point2.b, 2);
 }
 
-float ModifyImage::maxCoordsDistance(Point point1, sf::Color point2)
+float ModifyImage::maxCoordsDistance(Point& point1, sf::Color& point2)
 {
 	return std::max(std::max(std::abs(point1.r - point2.r), std::abs(point1.g - point2.g)), std::abs(point1.b - point2.b));
 }
 
-float ModifyImage::maxCoordsDistance(sf::Color point1, sf::Color point2)
+float ModifyImage::maxCoordsDistance(sf::Color& point1, sf::Color& point2)
 {
 	return std::max(std::max(std::abs(point1.r - point2.r), std::abs(point1.g - point2.g)), std::abs(point1.b - point2.b));
 }
@@ -508,7 +508,7 @@ void ModifyImage::FillImage(bool floydSteinberg)
 			thisColor = originalImage.getPixel(i, j);
 			for (size_t k = 0; k < quantityColors; k++)
 			{
-				thisDistance = pifagorMetric(thisColor, optimizedColors[k]);
+				thisDistance = maxCoordsDistance(thisColor, optimizedColors[k]);
 				if (thisDistance < minDistance)
 				{
 					minDistance = thisDistance;
@@ -540,63 +540,6 @@ void ModifyImage::FillImage(bool floydSteinberg)
 				if (pixel4.r + error4.r <= 255 && pixel4.g + error4.g <= 255 && pixel4.b + error4.b <= 255)
 					originalImage.setPixel(i + 1, j + 1, pixel4 + error4);
 			}
-		}
-	}
-
-	std::cout << "Final Fill" << std::endl;
-}
-
-void ModifyImage::FillFloydImage()
-{
-	for (size_t i = 0; i < 16; i++)
-	{
-		for (size_t j = 0; j < 16; j++)
-		{
-			for (size_t k = 0; k < 16; k++)
-			{
-				colors255.push_back(sf::Color(i * 16, j * 16, k * 16));
-			}
-		}
-	}
-
-	int thisDistance;
-	int minDistance;
-	sf::Color newPixel;
-	sf::Color oldPixel;
-
-	for (size_t i = 0; i < originalImage.getSize().x - 1; i++)
-	{
-		for (size_t j = 0; j < originalImage.getSize().y - 1; j++)
-		{
-			thisDistance = 0;
-			minDistance = 1000000000;
-			newPixel = sf::Color(0, 0, 0);
-			oldPixel = originalImage.getPixel(i, j);
-			for (size_t k = 0; k < quantityColors; k++)
-			{
-				thisDistance = pifagorMetric(oldPixel, colors255[k]);
-				if (thisDistance < minDistance)
-				{
-					minDistance = thisDistance;
-					newPixel = colors255[k];
-				}
-			}
-
-
-			sf::Color error = oldPixel - newPixel;
-
-			sf::Color error1 = sf::Color(error.r * (7.0 / 16.0), error.g * (7.0 / 16.0), error.b * (7.0 / 16.0));
-			sf::Color error2 = sf::Color(error.r * (3.0 / 16.0), error.g * (3.0 / 16.0), error.b * (3.0 / 16.0));
-			sf::Color error3 = sf::Color(error.r * (5.0 / 16.0), error.g * (5.0 / 16.0), error.b * (5.0 / 16.0));
-			sf::Color error4 = sf::Color(error.r * (1.0 / 16.0), error.g * (1.0 / 16.0), error.b * (1.0 / 16.0));
-
-			originalImage.setPixel(i + 1, j, originalImage.getPixel(i + 1, j) + error1);
-			originalImage.setPixel(i - 1, j + 1, originalImage.getPixel(i - 1, j + 1) + error2);
-			originalImage.setPixel(i, j + 1, originalImage.getPixel(i, j + 1) + error3);
-			originalImage.setPixel(i + 1, j + 1, originalImage.getPixel(i + 1, j + 1) + error4);
-
-
-			modifyImage.setPixel(i, j, newPixel);
 		}
 	}
 

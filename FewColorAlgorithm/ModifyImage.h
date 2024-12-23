@@ -19,12 +19,10 @@ public:
 
 	std::vector<sf::Color> optimizedColors;
 
-	static double pifagorMetric(Point vec1, sf::Color vec2);
-	static double pifagorMetric(sf::Color vec1, sf::Color vec2);
-	static float maxCoordsDistance(Point vec1, sf::Color vec2);
-	static float maxCoordsDistance(sf::Color vec1, sf::Color vec2);
-
-	
+	static double pifagorMetric(Point& vec1, sf::Color& vec2);
+	static double pifagorMetric(sf::Color& vec1, sf::Color& vec2);
+	static float maxCoordsDistance(Point& vec1, sf::Color& vec2);
+	static float maxCoordsDistance(sf::Color& vec1, sf::Color& vec2);
 
 	void SaveToJpg(std::string fileName);
 	/// <summary>
@@ -42,8 +40,6 @@ public:
 	void SaveToBinHaffman(std::string fileName, bool isRow);
 	// Заполнение изображения пикселями
 	void FillImage(bool floydSteinberg);
-
-	void FillFloydImage();
 
 };
 

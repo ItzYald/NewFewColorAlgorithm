@@ -9,7 +9,7 @@ private:
 
 public:
 	ModifyImageKMeans(){}
-	ModifyImageKMeans(std::string folder, std::string fileName, int _quantityColor, bool floydSteinberg);
+	ModifyImageKMeans(std::string& folder, std::string& fileName, int _quantityColor, bool floydSteinberg);
 
 	std::vector<sf::Vector3f> clustersSumCoords;
 	std::vector<int> quantityInClusters;

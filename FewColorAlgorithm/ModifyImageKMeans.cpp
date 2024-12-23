@@ -1,8 +1,8 @@
 #include "ModifyImageKMeans.h"
 
 
-ModifyImageKMeans::ModifyImageKMeans(std::string folder,
-	std::string fileName, int _quantityColors, bool floydSteinberg)
+ModifyImageKMeans::ModifyImageKMeans(std::string& folder,
+	std::string& fileName, int _quantityColors, bool floydSteinberg)
 {
 	quantityColors = _quantityColors;
 
@@ -28,7 +28,7 @@ ModifyImageKMeans::ModifyImageKMeans(std::string folder,
 	}
 	for (size_t k = 0; k < quantityColors; k++)
 	{
-		std::cout << (int)optimizedColors[k].r << " " << (int)optimizedColors[k].g << " " << (int)optimizedColors[k].b << std::endl;
+		std::cout << (int)optimizedColors[k].r << " " << (int)optimizedColors[k].g << " " << (int)optimizedColors[k].b << "  " << quantityInClusters[k] << std::endl;
 	}
 
 	FillImage(floydSteinberg);
@@ -57,7 +57,7 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 		index = 0;
 		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
+			distance = maxCoordsDistance(*thisPoint, optimizedColors[i]);
 			if (distance < minDistance)
 			{
 				minDistance = distance;
@@ -99,7 +99,7 @@ void ModifyImageKMeans::ScoreDistanceContinue()
 		index = 0;
 		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
+			distance = maxCoordsDistance(*thisPoint, optimizedColors[i]);
 			if (distance < minDistance)
 			{
 				minDistance = distance;

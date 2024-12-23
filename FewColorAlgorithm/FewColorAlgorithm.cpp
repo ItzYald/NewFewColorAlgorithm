@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
 		imageK.SaveToBin(
 			folder + "Few" + std::to_string(quantityColors) + fileName.substr(0, fileName.size() - 4) + ".bin", 1);
 	}
-	if (argc == 2)
+	else if (argc == 2)
 	{
 		std::filesystem::path path(argv[1]);
 		folder = path.parent_path().string() + "/";
