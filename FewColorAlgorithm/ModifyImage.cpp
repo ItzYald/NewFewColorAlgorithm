@@ -2,18 +2,18 @@
 
 double ModifyImage::pifagorMetric(Point& point1, sf::Color& point2)
 {
-	return 
-		std::pow(point1.r - point2.r, 2) +
-		std::pow(point1.g - point2.g, 2) +
-		std::pow(point1.b - point2.b, 2);
+	return
+		(point1.r - point2.r) * (point1.r - point2.r) +
+		(point1.g - point2.g) * (point1.g - point2.g) +
+		(point1.b - point2.b) * (point1.b - point2.b);
 }
 
 double ModifyImage::pifagorMetric(sf::Color& point1, sf::Color& point2)
 {
-	return 
-		std::pow(point1.r - point2.r, 2) +
-		std::pow(point1.g - point2.g, 2) +
-		std::pow(point1.b - point2.b, 2);
+	return
+		(point1.r - point2.r) * (point1.r - point2.r) +
+		(point1.g - point2.g) * (point1.g - point2.g) +
+		(point1.b - point2.b) * (point1.b - point2.b);
 }
 
 float ModifyImage::maxCoordsDistance(Point& point1, sf::Color& point2)
@@ -508,7 +508,7 @@ void ModifyImage::FillImage(bool floydSteinberg)
 			thisColor = originalImage.getPixel(i, j);
 			for (size_t k = 0; k < quantityColors; k++)
 			{
-				thisDistance = maxCoordsDistance(thisColor, optimizedColors[k]);
+				thisDistance = pifagorMetric(thisColor, optimizedColors[k]);
 				if (thisDistance < minDistance)
 				{
 					minDistance = thisDistance;

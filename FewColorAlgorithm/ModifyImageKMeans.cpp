@@ -57,7 +57,7 @@ void ModifyImageKMeans::ScoreDistanceFirst()
 		index = 0;
 		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			distance = maxCoordsDistance(*thisPoint, optimizedColors[i]);
+			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
 			if (distance < minDistance)
 			{
 				minDistance = distance;
@@ -99,7 +99,7 @@ void ModifyImageKMeans::ScoreDistanceContinue()
 		index = 0;
 		for (size_t i = 0; i < optimizedColors.size(); i++)
 		{
-			distance = maxCoordsDistance(*thisPoint, optimizedColors[i]);
+			distance = pifagorMetric(*thisPoint, optimizedColors[i]);
 			if (distance < minDistance)
 			{
 				minDistance = distance;
